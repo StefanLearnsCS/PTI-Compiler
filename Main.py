@@ -1,8 +1,13 @@
 from ReadList import read_allparts
 from GetDirectory import get_directory
 from DataCleanse import dataCleanse
+from FolderCreation import folderCreation
+from FileCompile import fileCompile
 
 def main():
+    soNumber = input("SO Number (i.e. 20216): ")
+    tankType = input("What type of package (Tank, Clamp, or UA): ")
+
     allPartsPath = get_directory()
     allPartsDrawing = input("File Name Containing All Parts List (i.e. PM-#####-TA): ")
 
@@ -12,5 +17,9 @@ def main():
     allPartsDictionary = {k: allPartsDictionaryUnsorted[k] for k in sorted(allPartsDictionaryUnsorted)}
     
     print(allPartsDictionary)
+
+    ssFolderPath, ppFolderPath = folderCreation(soNumber, tankType)
+
+    fileCompile(allPartsPath, ssFolderPath, allPartsDictionary, soNumber)
 
 main()
