@@ -3,6 +3,7 @@ from GetDirectory import get_directory
 from DataCleanse import dataCleanse
 from FolderCreation import folderCreation
 from FileCompile import fileCompile
+from FindParents import findParents
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -18,8 +19,10 @@ def main():
     
     print(allPartsDictionary)
 
+    allPartsDictionaryWithParents = findParents(allPartsPath, allPartsDictionary, soNumber)
+
     ssFolderPath, ppFolderPath = folderCreation(soNumber, tankType)
 
-    fileCompile(allPartsPath, ssFolderPath, allPartsDictionary, soNumber)
+    fileCompile(allPartsPath, ssFolderPath, allPartsDictionaryWithParents, soNumber)
 
 main()
