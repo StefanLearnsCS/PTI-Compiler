@@ -17,12 +17,10 @@ def main():
     allPartsDictionaryUnsorted = dataCleanse(allPartsRawText)
     allPartsDictionary = {k: allPartsDictionaryUnsorted[k] for k in sorted(allPartsDictionaryUnsorted)}
     
-    print(allPartsDictionary)
-
     allPartsDictionaryWithParents = findParents(allPartsPath, allPartsDictionary, soNumber)
 
     ssFolderPath, ppFolderPath = folderCreation(soNumber, tankType)
 
-    fileCompile(allPartsPath, ssFolderPath, allPartsDictionaryWithParents, soNumber)
+    fileCompile(allPartsPath, ssFolderPath, ppFolderPath, allPartsDictionaryWithParents, soNumber)
 
 main()
