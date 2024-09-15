@@ -27,7 +27,7 @@ def findParents(source, itemMap, soNumber):
         if relDrawing == 1:
             while found == 0 and keyTraverse > 1:
                 if 'M' in itemMap[keyTraverse]['issue']:
-                    useDrawing = input('Could not find drawing for ' + itemNumber + '. Would you like to use parent assembly drawing [' + itemMap[keyTraverse]['drawing'] + '] instead? (Y/N)')
+                    useDrawing = input('Could not find drawing for ' + itemNumber + '. Would you like to use parent assembly drawing [' + itemMap[keyTraverse]['drawing'] + '] instead? (Y/N) ')
                     if useDrawing == 'y' or useDrawing == 'Y':
                         updatedMap[key]['drawing'] = itemMap[keyTraverse]['drawing']
                         found = 1
