@@ -26,4 +26,4 @@ def folderCreation(soNumber, packageType):
     else:
         print(f"Folder '{folder_name}' already exists at: {new_folder_path}")
 
-    return SS_folder_path, PP_folder_path
+    return SS_folder_path, PP_folder_path, new_folder_path

@@ -4,6 +4,7 @@ from DataCleanse import dataCleanse
 from FolderCreation import folderCreation
 from FileCompile import fileCompile
 from FindParents import findParents
+from ItemList import itemListCreator
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -19,8 +20,11 @@ def main():
     
     allPartsDictionaryWithParents = findParents(allPartsPath, allPartsDictionary, soNumber)
 
-    ssFolderPath, ppFolderPath = folderCreation(soNumber, tankType)
+    ssFolderPath, ppFolderPath, newMainFolder = folderCreation(soNumber, tankType)
 
     fileCompile(allPartsPath, ssFolderPath, ppFolderPath, allPartsDictionaryWithParents, soNumber)
+
+    itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS')
+    itemListCreator(allPartsPath, allPartsDrawing, 'Parts - SAP', newMainFolder, soNumber, 'PP')
 
 main()
