@@ -22,4 +22,3 @@ def itemListCreator(source_folder, drawing_name, keyword, output_folder, soNumbe
     # Save the new PDF with just the extracted page
     with open(output_pdf, 'wb') as output_file:
         writer.write(output_file)
-        print(f"Page containing '{keyword}' has been saved to {output_pdf}")

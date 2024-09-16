@@ -20,11 +20,15 @@ def main():
     
     allPartsDictionaryWithParents = findParents(allPartsPath, allPartsDictionary, soNumber)
 
-    ssFolderPath, ppFolderPath, newMainFolder = folderCreation(soNumber, tankType)
+    ssFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'SS')
+    ppFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'PP')
 
-    fileCompile(allPartsPath, ssFolderPath, ppFolderPath, allPartsDictionaryWithParents, soNumber)
+    fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
+    fileCompile(allPartsPath, ppFolderPath, 'p', allPartsDictionaryWithParents, soNumber)
 
     itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS')
     itemListCreator(allPartsPath, allPartsDrawing, 'Parts - SAP', newMainFolder, soNumber, 'PP')
+
+    input("Success! Press any key to close window.")
 
 main()
