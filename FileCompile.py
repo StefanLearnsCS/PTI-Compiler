@@ -15,7 +15,7 @@ def fileCompile(source, folderPath, iCode, itemMap, soNumber):
         multiDxfName = itemNumber + '_'
         spiPath = "C:\\Users\\stefa\\OneDrive\\Desktop\\PTI Test\\20216\\20216 SPI"
 
-        if not value['packed']:
+        if iCode.lower() == 's' or not value['packed']:
 
             if soNumber in itemNumber:
                 if iCode in issueCode:

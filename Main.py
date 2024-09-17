@@ -15,7 +15,7 @@ def main():
     ssal = False
     StS = False
 
-    if tankType == 'Tank' or tankType == 'tank':
+    if tankType.lower() == 'tank':
         if input("Would you like a Gasket package (Issue # P5G)? (Y/N): ") in ['y', 'Y']:
             gasket = True
         if input("Would you like a Pressboard package (Issue # P8)? (Y/N): ") in ['y', 'Y']:
@@ -24,6 +24,12 @@ def main():
             ssal = True
         if input("Would you like a Structural Steel package (Issue # P4 & P14)? (Y/N): ") in ['y', 'Y']:
             StS = True
+
+    if tankType.lower() == 'clamp':
+        ''
+    
+    if tankType.lower() == 'ua':
+        ''
 
     allPartsPath = get_directory()
     allPartsDrawing = input("File Name Containing All Parts List (i.e. PM-#####-TA): ")
