@@ -5,6 +5,7 @@ from FolderCreation import folderCreation
 from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
+from NotPacked import notPacked
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -68,6 +69,8 @@ def main():
 
     allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
     allPartsDictionaryWithParents = fileCompile(allPartsPath, ppFolderPath, 'p', allPartsDictionaryWithParents, soNumber)
+
+    notPacked(allPartsDictionaryWithParents, soNumber)
 
     input("Success! Press any key to close window.")
 
