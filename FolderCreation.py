@@ -4,9 +4,16 @@ def folderCreation(soNumber, packageType, abreviation ):
     # Get the path to the desktop
     packageFolder = os.path.join(os.path.join(os.environ['USERPROFILE']), 'PackageCompile')
 
+    if packageType.lower() == "tank":
+        header = "TA"
+    elif packageType.lower() == "ua":
+        header = "UA"
+    elif packageType.lower() == "clamp":
+        header = "CLAMP"
+
     # Define the name of the new folder
     folder_name = 'SO' + soNumber + '-' + packageType
-    list_folder_name = 'SO' + soNumber + '-' + abreviation + '-PDF-DXF'
+    list_folder_name = 'SO' + soNumber + '-' + header + '-' + abreviation + '-PDF-DXF'
 
     # Create the new folder
     new_folder_path = os.path.join(packageFolder, folder_name)
@@ -17,10 +24,7 @@ def folderCreation(soNumber, packageType, abreviation ):
 
     # Check if the folder already exists
     if not os.path.exists(new_folder_path):
-        os.makedirs(new_folder_path)
-        print(f"Folder '{folder_name}' created at: {new_folder_path}")
-    else:
-        print(f"Folder '{folder_name}' already exists at: {new_folder_path}")   
+        os.makedirs(new_folder_path) 
 
     if not os.path.exists(list_folder_path):
         os.makedirs(list_folder_path)

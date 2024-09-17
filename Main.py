@@ -41,13 +41,27 @@ def main():
     fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
     fileCompile(allPartsPath, ppFolderPath, 'p', allPartsDictionaryWithParents, soNumber)
 
-    itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS')
-    itemListCreator(allPartsPath, allPartsDrawing, 'Parts - SAP', newMainFolder, soNumber, 'PP')
+    itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS', tankType)
+    itemListCreator(allPartsPath, allPartsDrawing, 'Parts - SAP', newMainFolder, soNumber, 'PP', tankType)
 
     if gasket:
         gaFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'GA')
         fileCompile(allPartsPath, gaFolderPath, 'p5g', allPartsDictionaryWithParents, soNumber)
-        itemListCreator(allPartsPath, allPartsDrawing, '(GASKETS)', newMainFolder, soNumber, 'GA')
+        itemListCreator(allPartsPath, allPartsDrawing, '(GASKETS)', newMainFolder, soNumber, 'GA', tankType)
+    if pressboard:
+        pbFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'PB')
+        fileCompile(allPartsPath, pbFolderPath, 'p8', allPartsDictionaryWithParents, soNumber)
+        itemListCreator(allPartsPath, allPartsDrawing, '(TX2)', newMainFolder, soNumber, 'PB', tankType)
+    if ssal:
+        ssalFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'SSAL')
+        fileCompile(allPartsPath, ssalFolderPath, 'p3', allPartsDictionaryWithParents, soNumber)
+        fileCompile(allPartsPath, ssalFolderPath, 'p4al', allPartsDictionaryWithParents, soNumber)
+        itemListCreator(allPartsPath, allPartsDrawing, '& Aluminum)', newMainFolder, soNumber, 'SSAL', tankType)
+    if StS:
+        stsFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'StS')
+        fileCompile(allPartsPath, stsFolderPath, 'p4', allPartsDictionaryWithParents, soNumber)
+        fileCompile(allPartsPath, stsFolderPath, 'p14', allPartsDictionaryWithParents, soNumber)
+        itemListCreator(allPartsPath, allPartsDrawing, '(StS)', newMainFolder, soNumber, 'StS', tankType)
 
     input("Success! Press any key to close window.")
 

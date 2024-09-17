@@ -1,7 +1,14 @@
 import os
 from PyPDF2 import PdfReader, PdfWriter
 
-def itemListCreator(source_folder, drawing_name, keyword, output_folder, soNumber, partsAbreviation):
+def itemListCreator(source_folder, drawing_name, keyword, output_folder, soNumber, partsAbreviation, packageType):
+    if packageType.lower() == "tank":
+        header = "TA"
+    elif packageType.lower() == "ua":
+        header = "UA"
+    elif packageType.lower() == "clamp":
+        header = "CLAMP"
+    
     # Open the original PDF
     reader = PdfReader(source_folder + '/' + drawing_name.lower() + '.pdf')
     writer = PdfWriter()
@@ -14,10 +21,9 @@ def itemListCreator(source_folder, drawing_name, keyword, output_folder, soNumbe
         # Check if the keyword is in the page
         if keyword.lower() in text.lower():
             writer.add_page(page)  # Add the page to the writer
-            break  # Exit the loop once we find the page
 
     # Create a dynamic file name (e.g., with the keyword and timestamp)
-    output_pdf = os.path.join(output_folder, f"SO{soNumber}-{partsAbreviation}-LIST.pdf")
+    output_pdf = os.path.join(output_folder, f"SO{soNumber}-{header}-{partsAbreviation}-LIST.pdf")
 
     # Save the new PDF with just the extracted page
     with open(output_pdf, 'wb') as output_file:
