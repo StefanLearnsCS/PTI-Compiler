@@ -17,7 +17,7 @@ def read_insulation(path, drawing_name):
 
     return text
 
-def inpDataCleanse(rawText):
+def inpDataCleanse(rawText, soNumber):
     lines = rawText.strip().split('\n')
 
     partsMap = {}
@@ -26,6 +26,14 @@ def inpDataCleanse(rawText):
         parts = line.split()
         
         if parts[0].isdigit():
-            partsMap[int(parts[0])] = {'drawing': parts[6], 'issue': parts[-1], 'packed': False}
+            if soNumber in parts[6] or 'spi' in parts[6]:
+                partsMap[int(parts[0])] = {'drawing': parts[6], 'issue': parts[-1], 'packed': False}
+            else:
+                drw = ''
+                for string in parts:
+                    if soNumber in string or 'spi' in string:
+                        drw = string
+                partsMap[int(parts[0])] = {'drawing': drw, 'issue': parts[-1], 'packed': False}
+                    
 
     return partsMap

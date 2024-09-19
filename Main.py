@@ -112,7 +112,7 @@ def main():
         
         InsulationRawText = read_insulation(allPartsPath, inpDrawing)
     
-        inpDictionaryUnsorted = inpDataCleanse(InsulationRawText)
+        inpDictionaryUnsorted = inpDataCleanse(InsulationRawText, soNumber)
         inpDictionary = {k: inpDictionaryUnsorted[k] for k in sorted(inpDictionaryUnsorted)}
     
         inpDictionaryWithParents = findParents(allPartsPath, inpDictionary, soNumber)
@@ -121,6 +121,8 @@ def main():
             inpFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'INSULATION')
             itemListCreator(allPartsPath, inpDrawing, 'Parts - SAP', newMainFolder, soNumber, 'INSULATION', tankType)
             allPartsDictionaryWithParents = fileCompile(allPartsPath, inpFolderPath, 'p', inpDictionaryWithParents, soNumber)
+
+        notPacked(inpDictionaryWithParents, soNumber)
 
 
 
