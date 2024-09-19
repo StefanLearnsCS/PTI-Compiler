@@ -6,7 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
-from InsulationHelper import read_insulation, inpDataCleanse
+from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -107,7 +107,7 @@ def main():
         
         if cccSteel:
             ssFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'CLAMP-SS')
-            itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'CLAMP-SS', tankType)
+            itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS', tankType)
             allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
         
         InsulationRawText = read_insulation(allPartsPath, inpDrawing)
@@ -121,6 +121,9 @@ def main():
             inpFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'INSULATION')
             itemListCreator(allPartsPath, inpDrawing, 'Parts - SAP', newMainFolder, soNumber, 'INSULATION', tankType)
             allPartsDictionaryWithParents = fileCompile(allPartsPath, inpFolderPath, 'p', inpDictionaryWithParents, soNumber)
+        
+        inpAssyListCreator(allPartsPath, inpDrawing, newMainFolder, soNumber)
+        folderCreation(soNumber, tankType, 'INSULATION-ASSY (empty)')
 
         notPacked(inpDictionaryWithParents, soNumber)
 

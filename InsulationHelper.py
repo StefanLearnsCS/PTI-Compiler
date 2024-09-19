@@ -1,4 +1,6 @@
 import pdfplumber
+import os
+from PyPDF2 import PdfReader, PdfWriter
 
 def read_insulation(path, drawing_name):
     # Open the PDF file using pdfplumber
@@ -37,3 +39,22 @@ def inpDataCleanse(rawText, soNumber):
                     
 
     return partsMap
+
+def inpAssyListCreator(source_folder, drawing_name, output_folder, soNumber):
+    header = 'INP-CCC-ASSY'
+    
+    # Open the original PDF
+    reader = PdfReader(source_folder + '/' + drawing_name.lower() + '.pdf')
+    writer = PdfWriter()
+
+    # Only extract the first page
+    first_page = reader.pages[0]
+    writer.add_page(first_page)
+
+    # Create a dynamic file name (e.g., with the keyword and timestamp)
+    output_pdf = os.path.join(output_folder, f"SO{soNumber}-{header}-LIST.pdf")
+
+    # Save the new PDF with just the extracted page
+    with open(output_pdf, 'wb') as output_file:
+        writer.write(output_file)
+        

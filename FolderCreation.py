@@ -1,7 +1,7 @@
 import os
 
 def folderCreation(soNumber, packageType, abreviation ):
-    # Get the path to the desktop
+    # Get the path to folder creation
     packageFolder = os.path.join(os.path.join(os.environ['USERPROFILE']), 'PackageCompile')
 
     if packageType.lower() == "tank":
