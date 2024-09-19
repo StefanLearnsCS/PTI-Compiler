@@ -6,6 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
+from InsulationHelper import read_insulation
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -17,6 +18,8 @@ def main():
     StS = False
     tx2 = False
     cubars = False
+    cccSteel = False
+    insul = False
 
     if tankType.lower() == 'tank':
         if input("Would you like a Gasket package (Issue # P5G)? (Y/N): ") in ['y', 'Y']:
@@ -29,16 +32,24 @@ def main():
             StS = True
 
     if tankType.lower() == 'clamp':
-        ''
+        if input("Would you like a CCC Assembly Steel Supplier package (Issue # S)? (Y/N): ") in ['y', 'Y']:
+            cccSteel = True
+        if input("Would you like a INP-CLM-CCC Insulation package (Issue # P)? (Y/N): ") in ['y', 'Y']:
+            insul = True
     
     if tankType.lower() == 'ua':
         if input("Would you like a TX2 package (Issue # P8)? (Y/N): ") in ['y', 'Y']:
             tx2 = True
         if input("Would you like a CU Bars package (Issue # P4Cu)? (Y/N): ") in ['y', 'Y']:
             cubars = True
+    
+    if tankType.lower() != 'clamp':
+        allPartsDrawing = input("File Name Containing All Parts List (i.e. SM-21043-TA): ")
+    else:
+        allPartsDrawing = input("File Name of CLM-CCC Drawing Containing All Parts List (i.e. CLM-CCC-21043): ")
+        inpDrawing = input("File Name of INP-CLM-CCC Drawing Containing Purchased Parts List (i.e. INP-CLM-CCC-21043): ")
 
     allPartsPath = get_directory()
-    allPartsDrawing = input("File Name Containing All Parts List (i.e. PM-#####-TA): ")
 
     allPartsRawText = read_allparts(allPartsPath, allPartsDrawing)
     
@@ -75,6 +86,7 @@ def main():
 
         allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
         allPartsDictionaryWithParents = fileCompile(allPartsPath, ppFolderPath, 'p', allPartsDictionaryWithParents, soNumber)
+        notPacked(allPartsDictionaryWithParents, soNumber)
 
     if tankType.lower() == 'ua':
         ppFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'PP')
@@ -91,8 +103,26 @@ def main():
 
         allPartsDictionaryWithParents = fileCompile(allPartsPath, ppFolderPath, 'p', allPartsDictionaryWithParents, soNumber)
 
+    if tankType.lower() == 'clamp':
+        
+        if cccSteel:
+            ssFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'CLAMP-SS')
+            itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'CLAMP-SS', tankType)
+            allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
+        
+        InsulationRawText = read_insulation(allPartsPath, inpDrawing)
+    
+        inpDictionaryUnsorted = dataCleanse(InsulationRawText)
+        inpDictionary = {k: inpDictionaryUnsorted[k] for k in sorted(inpDictionaryUnsorted)}
+    
+        inpDictionaryWithParents = findParents(allPartsPath, inpDictionary, soNumber)
 
-    notPacked(allPartsDictionaryWithParents, soNumber)
+        if insul:
+            inpFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'INSULATION')
+            itemListCreator(allPartsPath, inpDrawing, 'Parts - SAP', newMainFolder, soNumber, 'INSULATION', tankType)
+            allPartsDictionaryWithParents = fileCompile(allPartsPath, inpFolderPath, 'p', inpDictionaryWithParents, soNumber)
+
+
 
     input("Success! Press any key to close window.")
 
