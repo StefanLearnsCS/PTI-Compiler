@@ -12,7 +12,7 @@ def folderCreation(soNumber, packageType, abreviation ):
         header = "CLAMP"
 
     # Define the name of the new folder
-    folder_name = 'SO' + soNumber + '-' + packageType
+    folder_name = 'SO' + soNumber + '-' + packageType.upper()
     list_folder_name = 'SO' + soNumber + '-' + header + '-' + abreviation + '-PDF-DXF'
 
     # Create the new folder

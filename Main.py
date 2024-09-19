@@ -6,7 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
-from InsulationHelper import read_insulation
+from InsulationHelper import read_insulation, inpDataCleanse
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -112,7 +112,7 @@ def main():
         
         InsulationRawText = read_insulation(allPartsPath, inpDrawing)
     
-        inpDictionaryUnsorted = dataCleanse(InsulationRawText)
+        inpDictionaryUnsorted = inpDataCleanse(InsulationRawText)
         inpDictionary = {k: inpDictionaryUnsorted[k] for k in sorted(inpDictionaryUnsorted)}
     
         inpDictionaryWithParents = findParents(allPartsPath, inpDictionary, soNumber)
