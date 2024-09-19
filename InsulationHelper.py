@@ -40,6 +40,7 @@ def inpDataCleanse(rawText, soNumber):
 
     return partsMap
 
+
 def inpAssyListCreator(source_folder, drawing_name, output_folder, soNumber):
     header = 'INP-CCC-ASSY'
     
@@ -57,4 +58,32 @@ def inpAssyListCreator(source_folder, drawing_name, output_folder, soNumber):
     # Save the new PDF with just the extracted page
     with open(output_pdf, 'wb') as output_file:
         writer.write(output_file)
+
         
+def inpCombined(folder_path, soNumber):
+    # Create a PdfWriter object to combine PDFs
+    writer = PdfWriter()
+    
+    # Get a list of all the PDF files in the folder
+    pdf_files = [f for f in os.listdir(folder_path) if f.endswith('.pdf')]
+    
+    # Sort files alphabetically (can be adjusted as needed)
+    pdf_files.sort()
+
+    # Loop through each PDF file and add its pages to the writer
+    for pdf_file in pdf_files:
+        pdf_path = os.path.join(folder_path, pdf_file)
+        reader = PdfReader(pdf_path)
+        
+        # Add all pages from this PDF to the writer
+        for page_num in range(len(reader.pages)):
+            writer.add_page(reader.pages[page_num])
+
+    pdf_name = "SO" + soNumber + "-CLAMP-INSULATION-COMBINED-PDF.pdf"
+    
+    # Define the output file name (combine.pdf)
+    output_pdf = os.path.join(folder_path, pdf_name)
+
+    # Save the combined PDF
+    with open(output_pdf, 'wb') as output_file:
+        writer.write(output_file)

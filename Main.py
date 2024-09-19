@@ -6,7 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
-from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator
+from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator, inpCombined
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -18,8 +18,8 @@ def main():
     StS = False
     tx2 = False
     cubars = False
-    cccSteel = False
-    insul = False
+    cccSteel = True
+    insul = True
 
     if tankType.lower() == 'tank':
         if input("Would you like a Gasket package (Issue # P5G)? (Y/N): ") in ['y', 'Y']:
@@ -31,11 +31,11 @@ def main():
         if input("Would you like a Structural Steel package (Issue # P4 & P14)? (Y/N): ") in ['y', 'Y']:
             StS = True
 
-    if tankType.lower() == 'clamp':
-        if input("Would you like a CCC Assembly Steel Supplier package (Issue # S)? (Y/N): ") in ['y', 'Y']:
-            cccSteel = True
-        if input("Would you like a INP-CLM-CCC Insulation package (Issue # P)? (Y/N): ") in ['y', 'Y']:
-            insul = True
+    #if tankType.lower() == 'clamp':
+        #if input("Would you like a CCC Assembly Steel Supplier package (Issue # S)? (Y/N): ") in ['y', 'Y']:
+        #   cccSteel = True
+        #if input("Would you like a INP-CLM-CCC Insulation package (Issue # P)? (Y/N): ") in ['y', 'Y']:
+        #    insul = True
     
     if tankType.lower() == 'ua':
         if input("Would you like a TX2 package (Issue # P8)? (Y/N): ") in ['y', 'Y']:
@@ -44,7 +44,7 @@ def main():
             cubars = True
     
     if tankType.lower() != 'clamp':
-        allPartsDrawing = input("File Name Containing All Parts List (i.e. SM-21043-TA): ")
+        allPartsDrawing = input("File Name Containing All Parts List (i.e. SM-21043-TA or UA-21043): ")
     else:
         allPartsDrawing = input("File Name of CLM-CCC Drawing Containing All Parts List (i.e. CLM-CCC-21043): ")
         inpDrawing = input("File Name of INP-CLM-CCC Drawing Containing Purchased Parts List (i.e. INP-CLM-CCC-21043): ")
@@ -105,10 +105,9 @@ def main():
 
     if tankType.lower() == 'clamp':
         
-        if cccSteel:
-            ssFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'CLAMP-SS')
-            itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS', tankType)
-            allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
+        ssFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'CLAMP-SS')
+        itemListCreator(allPartsPath, allPartsDrawing, 'Steel Supplier Parts', newMainFolder, soNumber, 'SS', tankType)
+        allPartsDictionaryWithParents = fileCompile(allPartsPath, ssFolderPath, 's', allPartsDictionaryWithParents, soNumber)
         
         InsulationRawText = read_insulation(allPartsPath, inpDrawing)
     
@@ -117,13 +116,13 @@ def main():
     
         inpDictionaryWithParents = findParents(allPartsPath, inpDictionary, soNumber)
 
-        if insul:
-            inpFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'INSULATION')
-            itemListCreator(allPartsPath, inpDrawing, 'Parts - SAP', newMainFolder, soNumber, 'INSULATION', tankType)
-            allPartsDictionaryWithParents = fileCompile(allPartsPath, inpFolderPath, 'p', inpDictionaryWithParents, soNumber)
+        inpFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'INSULATION')
+        itemListCreator(allPartsPath, inpDrawing, 'Parts - SAP', newMainFolder, soNumber, 'INSULATION', tankType)
+        allPartsDictionaryWithParents = fileCompile(allPartsPath, inpFolderPath, 'p', inpDictionaryWithParents, soNumber)
         
         inpAssyListCreator(allPartsPath, inpDrawing, newMainFolder, soNumber)
         folderCreation(soNumber, tankType, 'INSULATION-ASSY (empty)')
+        inpCombined(inpFolderPath, soNumber)
 
         notPacked(inpDictionaryWithParents, soNumber)
 
