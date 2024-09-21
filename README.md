@@ -27,3 +27,17 @@ cd PTI-Compiler
 #### 2. Ensure all required modules (ReadList, GetDirectory, DataCleanse, etc.) are present.
 
 ## Usage
+
+#### To run the program, simply execute the main.py file:
+```bash
+python main.py
+```
+
+### Input Prompts
+#### The script will ask for user inputs in the terminal, such as:
+* SO Number: A unique identifier for the transformer (i.e. 20216).
+* Package Type: Select from Tank, Clamp, or Unit Assembly.
+* Additional package-specific options for gaskets, pressboards, structural steel, etc.
+
+#### Depending on the transformer type, you may be prompted for part list files (e.g., "SM-21043-TA" or "UA-21043"). The program will automatically generate folders and compile the necessary files.
+
