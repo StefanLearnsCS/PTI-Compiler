@@ -41,3 +41,23 @@ python main.py
 
 #### Depending on the transformer type, you may be prompted for part list files (e.g., "SM-21043-TA" or "UA-21043"). The program will automatically generate folders and compile the necessary files.
 
+### Example Workflow
+#### 1. Run the script and enter the SO Number: 20216.
+#### 2. Choose the package type: Tank.
+#### 3. Select additional options (e.g., Gasket package or Stainless/Aluminum package).
+#### 4. Provide the name of the file containing the all-parts list: SM-21043-TA.
+#### 5. The program will create folders, compile files, and cleanse data according to the chosen options.
+#### Once the process is complete, you will see a "Success" message.
+
+## Project Modules
+* ReadList: Reads the raw part lists from a provided file.
+* GetDirectory: Retrieves the directory of the parts list and drawings to compile.
+* DataCleanse: Cleans and organizes the raw parts data.
+* FolderCreation: Creates necessary folders based on user input.
+* FileCompile: Compiles the parts into their respective folders.
+* FindParents: Identifies and organizes parent-child part relationships.
+* ItemListCreator: Creates item lists for specific categories.
+* NotPacked: Identifies and outputs parts that were not packed/compiled.
+* InsulationHelper: Assists in processing insulation parts.
+
+## Future Enhancements
