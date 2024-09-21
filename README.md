@@ -17,3 +17,13 @@ pip install os PyPDF2 pdfplumber
 ```
 
 ## Installation
+
+#### 1. Clone the repository:
+```bash
+git clone https://github.com/StefanLearnsCS/PTI-Compiler.git
+cd PTI-Compiler
+```
+
+#### 2. Ensure all required modules (ReadList, GetDirectory, DataCleanse, etc.) are present.
+
+## Usage
