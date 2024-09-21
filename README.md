@@ -1,9 +1,5 @@
-# PTI-Compiler
-PDF and Package compiler for PTI
+# Transformer Package Compiler
 
-Start of coding.
+#### This project automates the process of creating various parts packages for transformers based on user input. It processes part lists, organizes files, and compiles folders based on specific package types (Tank, Clamp, or Unit Assembly)
 
-Need to do SPI parts X
-Test if SS and PP list PDF works for multiple pages X
-
-Need to do clamp and UA and Insulation
+## Features
