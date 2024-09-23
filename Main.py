@@ -6,7 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
-from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator, inpCombined, inpAssyDataCleanse, read_assyInsulation, inpAssyCompile
+from InsulationHelper import uaCombined, read_insulation, inpDataCleanse, inpAssyListCreator, inpCombined, inpAssyDataCleanse, read_assyInsulation, inpAssyCompile
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -96,6 +96,7 @@ def main():
             tx2FolderPath, newMainFolder = folderCreation(soNumber, tankType, 'TX2')
             allPartsDictionaryWithParents = fileCompile(allPartsPath, tx2FolderPath, 'p8', allPartsDictionaryWithParents, soNumber)
             itemListCreator(allPartsPath, allPartsDrawing, '(TX2)', newMainFolder, soNumber, 'PURCHASE LIST (TX2)', tankType)
+            uaCombined(tx2FolderPath, soNumber)
         if cubars:
             cuFolderPath, newMainFolder = folderCreation(soNumber, tankType, 'PP-CU')
             allPartsDictionaryWithParents = fileCompile(allPartsPath, cuFolderPath, 'p4cu', allPartsDictionaryWithParents, soNumber)
