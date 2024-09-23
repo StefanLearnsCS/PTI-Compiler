@@ -4,6 +4,8 @@ import os
 def fileCompile(source, folderPath, iCode, itemMap, soNumber):
 
     updatedMap = itemMap
+    spiPath1 = "C:\\Users\\stefa\\OneDrive\\Desktop\\PTI Test\\20216\\20216 SPI"
+    spiPath2 = "C:\\Users\\stefa\\OneDrive\\Desktop\\PTI Test\\20216\\20216 SPI"
 
     for key, value in updatedMap.items():
 
@@ -13,7 +15,6 @@ def fileCompile(source, folderPath, iCode, itemMap, soNumber):
         pdfName = itemNumber + '.pdf'
         dxfName = itemNumber + '.dxf'
         multiDxfName = itemNumber + '_'
-        spiPath = "C:\\Users\\stefa\\OneDrive\\Desktop\\PTI Test\\20216\\20216 SPI"
 
         if iCode.lower() == 's' or not value['packed']:
 
@@ -29,7 +30,14 @@ def fileCompile(source, folderPath, iCode, itemMap, soNumber):
 
             if 'spi' in itemNumber:
                 if iCode in issueCode:
-                    for root, dirs, files in os.walk(spiPath):
+                    for root, dirs, files in os.walk(spiPath1):
+                        for file in files:
+                            if (itemNumber in file):
+                                source_file = os.path.join(root, file)
+                                dest_file = os.path.join(folderPath, file)
+                                shutil.copy2(source_file, dest_file)
+                                updatedMap[key]["packed"] = True
+                    for root, dirs, files in os.walk(spiPath2):
                         for file in files:
                             if (itemNumber in file):
                                 source_file = os.path.join(root, file)

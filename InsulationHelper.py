@@ -59,6 +59,8 @@ def inpAssyListCreator(source_folder, drawing_name, output_folder, soNumber):
     with open(output_pdf, 'wb') as output_file:
         writer.write(output_file)
 
+    return output_pdf
+
         
 def inpCombined(folder_path, soNumber):
     # Create a PdfWriter object to combine PDFs
@@ -87,3 +89,29 @@ def inpCombined(folder_path, soNumber):
     # Save the combined PDF
     with open(output_pdf, 'wb') as output_file:
         writer.write(output_file)
+
+
+def inpAssyDataCleanse(rawText):
+    lines = rawText.strip().split('\n')
+
+    partsList = []
+
+    for line in lines:
+        parts = line.split()
+        if parts[-1].lower() == 'mq':
+            for i in parts:
+                if "INP-CLM" in i:
+                    partsList.append(i)
+
+    print(partsList)
+    return partsList
+
+def read_assyInsulation(path, drawing_name):
+    # Open the PDF file using pdfplumber
+    with pdfplumber.open(path + '/' + drawing_name.lower() + '.pdf') as pdf:
+        # Extract text from the first page only
+        first_page = pdf.pages[0]
+        text = first_page.extract_text()
+        
+    return text
+

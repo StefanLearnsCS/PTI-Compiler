@@ -6,7 +6,7 @@ from FileCompile import fileCompile
 from FindParents import findParents
 from ItemList import itemListCreator
 from NotPacked import notPacked
-from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator, inpCombined
+from InsulationHelper import read_insulation, inpDataCleanse, inpAssyListCreator, inpCombined, inpAssyDataCleanse, read_assyInsulation
 
 def main():
     soNumber = input("SO Number (i.e. 20216): ")
@@ -124,10 +124,18 @@ def main():
         folderCreation(soNumber, tankType, 'INSULATION-ASSY (empty)')
         inpCombined(inpFolderPath, soNumber)
 
+        assyInsulationList = read_assyInsulation(allPartsPath, inpDrawing)
+        assyInsulationDictionary = inpAssyDataCleanse(assyInsulationList)
+
         notPacked(inpDictionaryWithParents, soNumber)
 
 
 
     input("Success! Press any key to close window.")
 
-main()
+#main()
+allPartsPath = get_directory()
+inpFolderPath, newMainFolder = folderCreation('21043', 'clamp', 'INSULATION')
+allPartsDrawing = input("File Name of INP-CLM-CCC Drawing Containing Purchased Parts List (i.e. INP-CLM-CCC-21043): ")
+allPartsRawText = read_assyInsulation(allPartsPath, allPartsDrawing)
+allPartsDictionaryUnsorted = inpAssyDataCleanse(allPartsRawText)
