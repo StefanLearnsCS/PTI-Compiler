@@ -1,6 +1,7 @@
 import pdfplumber
 import os
 from PyPDF2 import PdfReader, PdfWriter
+import shutil
 
 def read_insulation(path, drawing_name):
     # Open the PDF file using pdfplumber
@@ -101,9 +102,8 @@ def inpAssyDataCleanse(rawText):
         if parts[-1].lower() == 'mq':
             for i in parts:
                 if "INP-CLM" in i:
-                    partsList.append(i)
+                    partsList.append(i.lower())
 
-    print(partsList)
     return partsList
 
 def read_assyInsulation(path, drawing_name):
@@ -115,3 +115,17 @@ def read_assyInsulation(path, drawing_name):
         
     return text
 
+def inpAssyCompile(source, folderPath, assyList):
+
+    for itemNumber in assyList:
+
+        pdfName = itemNumber + '.pdf'
+        dxfName = itemNumber + '.dxf'
+        multiDxfName = itemNumber + '_'
+
+        for root, dirs, files in os.walk(source):
+            for file in files:
+                if (pdfName in file) or (dxfName in file) or (multiDxfName in file):
+                    source_file = os.path.join(root, file)
+                    dest_file = os.path.join(folderPath, file)
+                    shutil.copy2(source_file, dest_file)
