@@ -30,13 +30,13 @@ def inpDataCleanse(rawText, soNumber):
         
         if parts[0].isdigit():
             if soNumber in parts[6] or 'spi' in parts[6]:
-                partsMap[int(parts[0])] = {'drawing': parts[6], 'issue': parts[-1], 'packed': False}
+                partsMap[int(parts[0])] = {'drawing': parts[6].lower(), 'issue': parts[-1], 'packed': False}
             else:
                 drw = ''
                 for string in parts:
-                    if soNumber in string or 'spi' in string:
+                    if soNumber in string.lower() or 'spi' in string.lower():
                         drw = string
-                partsMap[int(parts[0])] = {'drawing': drw, 'issue': parts[-1], 'packed': False}
+                partsMap[int(parts[0])] = {'drawing': drw.lower(), 'issue': parts[-1], 'packed': False}
                     
 
     return partsMap

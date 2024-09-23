@@ -28,18 +28,18 @@ def fileCompile(source, folderPath, iCode, itemMap, soNumber):
                                 shutil.copy2(source_file, dest_file)
                                 updatedMap[key]["packed"] = True
 
-            if 'spi' in itemNumber:
+            if 'spi' in itemNumber.lower():
                 if iCode in issueCode:
                     for root, dirs, files in os.walk(spiPath1):
                         for file in files:
-                            if (itemNumber in file):
+                            if (multiDxfName.lower() in file.lower()):
                                 source_file = os.path.join(root, file)
                                 dest_file = os.path.join(folderPath, file)
                                 shutil.copy2(source_file, dest_file)
                                 updatedMap[key]["packed"] = True
                     for root, dirs, files in os.walk(spiPath2):
                         for file in files:
-                            if (itemNumber in file):
+                            if (multiDxfName.lower() in file.lower()):
                                 source_file = os.path.join(root, file)
                                 dest_file = os.path.join(folderPath, file)
                                 shutil.copy2(source_file, dest_file)
