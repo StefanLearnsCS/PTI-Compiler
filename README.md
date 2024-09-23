@@ -61,3 +61,6 @@ python main.py
 * InsulationHelper: Assists in processing insulation parts.
 
 ## Future Enhancements
+
+* Add support for more transformer package types.
+* Enhance error handling and improve the user interface.
