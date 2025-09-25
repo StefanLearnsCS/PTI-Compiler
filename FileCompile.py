@@ -4,8 +4,8 @@ import os
 def fileCompile(source, folderPath, iCode, itemMap, soNumber):
 
     updatedMap = itemMap
-    spiPath1 = "Z:\\SHOP_SALES_ORDER\\SPI PARTS\\SPI PARTS"
-    spiPath2 = "Z:\\SHOP_SALES_ORDER\\SPI PARTS\\SPI SAP PARTS"
+    spiPath1 = "Z:\\01. Projects\\SPI PARTS\\SPI PARTS"
+    spiPath2 = "Z:\\01. Projects\\SPI PARTS\\SPI SAP PARTS"
 
     for key, value in updatedMap.items():
 
